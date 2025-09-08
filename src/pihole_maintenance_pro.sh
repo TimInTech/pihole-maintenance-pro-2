@@ -12,9 +12,7 @@ VERSION="1.0.0"
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
-BLUE='\033[1;34m'
-CYAN='\033[0;36m'
-BOLD='\033[1m'
+
 NC='\033[0m'
 
 # Defaults
@@ -57,7 +55,7 @@ log() {
   local lvl=$1 msg=$2
   local lvl_num
   lvl_num=$(level_num "$lvl")
-  [[ $lvl_num -lt $(level_num "$LOG_LEVEL") ]] && return 0
+
   local ts
   ts=$(date '+%Y-%m-%d %H:%M:%S')
   local line="[$ts][$lvl] $msg"
@@ -99,13 +97,7 @@ load_config() {
   fi
 }
 
-require_cmd() { command -v "$1" >/dev/null 2>&1 || fail "Benötigtes Kommando fehlt: $1"; }
 
-is_docker_env() {
-  if [[ "$DOCKER_MODE" == "true" ]]; then return 0; fi
-  if [[ "$DOCKER_MODE" == "false" ]]; then return 1; fi
-  [[ -f "/.dockerenv" ]] && return 0
-  grep -qE '/docker/|/containerd/' /proc/1/cgroup 2>/dev/null && return 0
   return 1
 }
 
@@ -119,7 +111,7 @@ pihole_cmd() {
     return 0
   fi
   # Docker: via docker exec gegen Container
-  if command -v docker >/dev/null 2>&1; then
+
     echo "docker exec -i ${PIHOLE_CONTAINER_NAME} pihole"
     return 0
   fi
@@ -186,7 +178,7 @@ lock_acquire() {
 }
 
 lock_release() {
-  flock -u 9 || true
+
 }
 
 # Aktionen
@@ -328,7 +320,7 @@ main() {
   rotate_if_needed
   load_config
 
-  local args=("$@")
+
   local run_update=false run_gravity=false run_backup=false run_health=false rotate_logs=false
 
   while [[ $# -gt 0 ]]; do

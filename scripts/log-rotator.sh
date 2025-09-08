@@ -16,7 +16,7 @@ rotate() {
 }
 
 cleanup_old() {
-  ls -1t ${LOG_FILE}.* 2>/dev/null | tail -n +$RETENTION | xargs -r rm -f
+
 }
 
 main() {
