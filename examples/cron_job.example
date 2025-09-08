@@ -1,0 +1,8 @@
+# Führe alle 30 Minuten Healthchecks aus
+*/30 * * * * root /usr/local/bin/pihole_maintenance_pro.sh --health --log-level warn
+
+# Täglich um 03:15 Uhr: Updates + Gravity + Backup
+15 3 * * * root /usr/local/bin/pihole_maintenance_pro.sh --update --gravity --backup --log-level info
+
+# Wöchentliche Logrotation zusätzlich absichern
+0 4 * * 0 root /usr/local/bin/pihole_maintenance_pro.sh --rotate-logs
