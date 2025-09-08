@@ -1,0 +1,24 @@
+version: "3.9"
+services:
+  pihole-maintenance-pro:
+    build: .
+    image: timintech/pihole-maintenance-pro:latest
+    container_name: pihole-maintenance-pro
+    environment:
+      - TZ=Europe/Berlin
+      # Optional: Runner im Cron-Modus
+      - CRON_SCHEDULE=*/30 * * * *
+      # Benachrichtigungen
+      - NOTIFY_SLACK=false
+      - SLACK_WEBHOOK_URL=
+      - NOTIFY_EMAIL=false
+      - EMAIL_TO=root@localhost
+      - EMAIL_FROM=pihole-maintenance-pro@localhost
+      # Docker-Integration: Name des Pi-hole Containers
+      - PIHOLE_CONTAINER_NAME=pihole
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./logs:/var/log/pihole-maintenance-pro
+      - ./backups:/var/backups/pihole
+      - ./config:/etc/pihole-maintenance-pro
+    restart: unless-stopped

@@ -1,0 +1,27 @@
+# Logs
+/logs/
+*.log
+*.log.*
+*.tgz
+*.tar.gz
+
+# Runtime
+/.cache/
+/.tmp/
+/tmp/
+
+# Editors/OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Tests
+/tests/.bats_tmp/
+/coverage/
+
+# Containers
+*.pid
+
+# ShellCheck cache (falls genutzt)
+.shellcheck/

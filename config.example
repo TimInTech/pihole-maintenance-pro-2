@@ -1,0 +1,38 @@
+# /etc/pihole-maintenance-pro/config.cfg
+# Vollständig kommentierte Beispielkonfiguration
+
+# Verzeichnisse
+BACKUP_DIR="/var/backups/pihole"
+LOG_DIR="/var/log/pihole-maintenance-pro"
+LOG_FILE="$LOG_DIR/pihole-maintenance-pro.log"
+LOG_LEVEL="info"   # debug|info|warn|error
+COLOR_OUTPUT=true
+
+# Benachrichtigungen
+NOTIFY_EMAIL=false
+EMAIL_TO="root@localhost"
+EMAIL_FROM="pihole-maintenance-pro@localhost"
+
+NOTIFY_SLACK=false
+SLACK_WEBHOOK_URL=""
+
+# Docker-Unterstützung
+DOCKER_MODE="auto"               # auto|true|false
+PIHOLE_CONTAINER_NAME="pihole"   # Name des laufenden Containers mit Pi-hole
+
+# Pi-hole Kommandopfad, leer = automatisch finden
+PIHOLE_CMD=""
+
+# Ressourcenkontrolle (optional)
+NICE_LEVEL=10              # 0..19, höher = niedrige Priorität
+IONICE_CLASS=2             # 1=real-time,2=best-effort,3=idle
+IONICE_PRIORITY=7          # 0..7, höher = niedrige Priorität
+CPU_AFFINITY=""           # z.B. "0,1" für CPU 0 und 1, leer = keine Bindung
+
+# Lockfile schützt vor Parallel-Läufen
+LOCK_FILE="/var/run/pihole-maintenance-pro.lock"
+
+# Backup-Einstellungen
+INCLUDE_ETC_PIHOLE=true
+INCLUDE_DNSMASQ=true
+RETENTION_DAYS=14
