@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install tooling
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y shellcheck shfmt bats docker.io
+
+      - name: ShellCheck
+        run: |
+          shellcheck -x src/pihole_maintenance_pro.sh src/runner.sh scripts/*.sh
+
+      - name: shfmt
+        run: |
+          shfmt -d -i 2 -ci -bn src/ scripts/
+
+      - name: BATS tests
+        run: |
+          bats -r tests
+
+      - name: Build Docker image
+        run: |
+          docker build -t pmp:test .
+
+      - name: Smoke test container
+        run: |
+          docker run --rm pmp:test /usr/local/bin/pihole_maintenance_pro.sh --version

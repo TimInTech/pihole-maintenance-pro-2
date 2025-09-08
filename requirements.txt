@@ -1,0 +1,2 @@
+# Dieses Projekt hat keine Python-Abhängigkeiten.
+# Tests und Linting erfolgen über Shell-Tools (bats, shellcheck, shfmt) und Docker.
