@@ -16,8 +16,7 @@ rotate() {
 }
 
 cleanup_old() {
-  find "$(dirname "$LOG_FILE")" -maxdepth 1 -type f -name "$(basename "$LOG_FILE").*" \
-    -printf '%T@ %p\n' 2>/dev/null | sort -nr | tail -n +$RETENTION | cut -d' ' -f2- | xargs -r rm -f
+
 }
 
 main() {
